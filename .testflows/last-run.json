@@ -1,0 +1,83 @@
+{
+  "failed" : 0,
+  "failed_names" : [
+
+  ],
+  "generated_at" : "2026-05-10T10:25:51Z",
+  "passed" : 7,
+  "results" : [
+    {
+      "display_name" : "schema-shape",
+      "duration_seconds" : 0.0008690357208251953,
+      "name" : "schema-shape",
+      "status" : "passed",
+      "tags" : [
+        "development",
+        "schema"
+      ]
+    },
+    {
+      "display_name" : "address-parent-graph",
+      "duration_seconds" : 2.9802322387695312e-06,
+      "name" : "address-parent-graph",
+      "status" : "passed",
+      "tags" : [
+        "addresses",
+        "schema"
+      ]
+    },
+    {
+      "display_name" : "resolve-main-layout",
+      "duration_seconds" : 5.4001808166503906e-05,
+      "name" : "resolve-main-layout",
+      "status" : "passed",
+      "tags" : [
+        "main",
+        "resolver"
+      ]
+    },
+    {
+      "display_name" : "resolve-myworkdir-layout",
+      "duration_seconds" : 4.00543212890625e-05,
+      "name" : "resolve-myworkdir-layout",
+      "status" : "passed",
+      "tags" : [
+        "myworkdir",
+        "resolver"
+      ]
+    },
+    {
+      "display_name" : "missing-layout-fails",
+      "duration_seconds" : 5.0067901611328125e-06,
+      "name" : "missing-layout-fails",
+      "status" : "passed",
+      "tags" : [
+        "errors",
+        "resolver"
+      ]
+    },
+    {
+      "display_name" : "missing-address-fails",
+      "duration_seconds" : 2.9802322387695312e-06,
+      "name" : "missing-address-fails",
+      "status" : "passed",
+      "tags" : [
+        "errors",
+        "resolver"
+      ]
+    },
+    {
+      "display_name" : "missing-path-mapping-fails",
+      "duration_seconds" : 2.9802322387695312e-06,
+      "name" : "missing-path-mapping-fails",
+      "status" : "passed",
+      "tags" : [
+        "errors",
+        "resolver"
+      ]
+    }
+  ],
+  "skipped" : 0,
+  "title" : "Partition",
+  "total" : 7
+}
