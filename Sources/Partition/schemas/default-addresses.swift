@@ -14,6 +14,8 @@ public enum DevelopmentPartitionAddress: String, PartitionAddressIdentifying, Ca
 
     case websites
     case apis
+    case networks
+    case nginx
 
     case api_hondenmeesters
     case api_hondenmeesters_env
@@ -54,6 +56,12 @@ public enum DevelopmentPartitionAddress: String, PartitionAddressIdentifying, Ca
 
         case .apis:
             return .programming
+
+        case .networks:
+            return .programming
+
+        case .nginx:
+            return .networks
 
         case .api_hondenmeesters:
             return .apis

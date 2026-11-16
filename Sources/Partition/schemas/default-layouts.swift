@@ -30,6 +30,10 @@ public enum DevelopmentPartitionLayout {
                 .init("main", "programming", "bundles", "websites"),
             .apis:
                 .init("main", "programming", "bundles", "api"),
+            .networks:
+                .init("main", "programming", "bundles", "networks"),
+            .nginx:
+                .init("main", "programming", "bundles", "networks", "nginx"),
             .api_hondenmeesters:
                 .init("main", "programming", "bundles", "api", "api-hondenmeesters"),
             .api_hondenmeesters_env:
@@ -67,6 +71,10 @@ public enum DevelopmentPartitionLayout {
                 .init("myworkdir", "programming", "websites"),
             .apis:
                 .init("myworkdir", "programming", "api"),
+            .networks:
+                .init("myworkdir", "programming", "config"),
+            .nginx:
+                .init("myworkdir", "programming", "config", "nginx"),
             .api_hondenmeesters:
                 .init("myworkdir", "programming", "api", "api-hondenmeesters"),
             .api_hondenmeesters_env:
