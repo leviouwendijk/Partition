@@ -13,16 +13,11 @@ let package = Package(
             name: "Partition",
             targets: ["Partition"]
         ),
-        .executable(
-            name: "partest",
-            targets: ["PartitionTestFlows"]
-        ),
     ],
     dependencies: [
         .package(url: "https://github.com/leviouwendijk/Primitives.git", branch: "master"),
         .package(url: "https://github.com/leviouwendijk/Path.git", branch: "master"),
         .package(url: "https://github.com/leviouwendijk/Milieu.git", branch: "master"),
-        .package(url: "https://github.com/leviouwendijk/TestFlows.git", branch: "master"),
     ],
     targets: [
         .target(
@@ -31,14 +26,6 @@ let package = Package(
                 "Primitives",
                 "Path",
                 "Milieu",
-            ],
-        ),
-        .executableTarget(
-            name: "PartitionTestFlows",
-            dependencies: [
-                "Partition",
-                "Path",
-                "TestFlows",
             ],
         ),
     ],
