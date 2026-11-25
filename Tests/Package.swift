@@ -10,7 +10,7 @@ let package = Package(
     ],
     products: [
         .executable(
-            name: "partest",
+            name: "t_partition",
             targets: ["PartitionTestFlows"]
         ),
     ],
@@ -24,6 +24,7 @@ let package = Package(
             name: "PartitionTestFlows",
             dependencies: [
                 .product(name: "Partition", package: "Partition"),
+                .product(name: "PartitionFrame", package: "Partition"),
                 "Path",
                 "TestFlows",
             ],

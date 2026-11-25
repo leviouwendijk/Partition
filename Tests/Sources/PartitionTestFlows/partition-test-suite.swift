@@ -5,7 +5,9 @@ import TestFlows
 enum PartitionTestSuite: TestFlowRegistry {
     static let title = "Partition"
 
-    static let flows: [TestFlow] = [
+    static let flows: [TestFlow] = PartitionKeyFlows.flows + schemaFlows
+
+    static let schemaFlows: [TestFlow] = [
         TestFlow(
             "schema-shape",
             tags: [

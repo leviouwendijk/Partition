@@ -1,0 +1,321 @@
+{
+  "originHash" : "dac6af65bc16d67005c2f6bd5a4a46156056e47702a0aff26da12b18e1febf15",
+  "pins" : [
+    {
+      "identity" : "ansi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/ANSI.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "e54aa7c3e993c0217978be04c8e92fce8cf072db"
+      }
+    },
+    {
+      "identity" : "arguments",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Arguments.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c9f38a0396d54a9c98c7fa4fb6b10cba4197170f"
+      }
+    },
+    {
+      "identity" : "atomos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Atomos.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "857fa1b7d1975fe17d52e21c154f92ba5e696be3"
+      }
+    },
+    {
+      "identity" : "clipboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Clipboard",
+      "state" : {
+        "branch" : "master",
+        "revision" : "485cc3201b3b34e6b1a57937b04064e291a45a14"
+      }
+    },
+    {
+      "identity" : "difference",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Difference.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "37f9a4f9b56bb547b3c3915e664e7e9de927bff0"
+      }
+    },
+    {
+      "identity" : "dsl",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-dsl/DSL.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "92957f2f62db2627638574ae5eaa055e7b1c4f73"
+      }
+    },
+    {
+      "identity" : "errors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Errors.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "bd29066eccb8425d7a69d52f386a573916f5f9b0"
+      }
+    },
+    {
+      "identity" : "excerpt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Excerpt.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7624c1bb867a3769782e083ef0e3588b107e3962"
+      }
+    },
+    {
+      "identity" : "filetypes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/FileTypes.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "315d095312091e4c089e60b24fa02df73d337531"
+      }
+    },
+    {
+      "identity" : "frame",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lco-langs/Frame.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "8c3756066075be94da9698d8fceb9d3427600b14"
+      }
+    },
+    {
+      "identity" : "fuzzy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Fuzzy.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5dcc6dd2b21e5a73a11924bdd5f17aa1a84da918"
+      }
+    },
+    {
+      "identity" : "grammar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-langs/Grammar.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "3543fba2d80dd915f88f415e54b2a603d57a22c2"
+      }
+    },
+    {
+      "identity" : "io",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/IO.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "41066378fe9f6a2593e02b6230f2f0c73b98f6a4"
+      }
+    },
+    {
+      "identity" : "lexing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-langs/Lexing.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "142a5a82cf7590a56046e35dc08b2bba7e57b14b"
+      }
+    },
+    {
+      "identity" : "matching",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Matching.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "3798342c3cc8d7fc7b5feb031242db3cb4d77a2f"
+      }
+    },
+    {
+      "identity" : "math",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Math.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "e13992ac1b882ed145b9db4837b0714a1c4bead4"
+      }
+    },
+    {
+      "identity" : "methods",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Methods.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "fcd9d14a11409fd748c174eadfdeedfde2c9ed5f"
+      }
+    },
+    {
+      "identity" : "milieu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Milieu.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "577ab1caa1513151b6b1d2dcff5fa857533890cd"
+      }
+    },
+    {
+      "identity" : "parsing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-langs/Parsing.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "309f9cddd8379816e0440891b9fdcfcd30d5f2d4"
+      }
+    },
+    {
+      "identity" : "path",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Path.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "dd0821ac5bdf9b51089a3456b3d67f2798145ba5"
+      }
+    },
+    {
+      "identity" : "position",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Position.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a34eb67fc39944bcc0305b4bdc98d890058159bd"
+      }
+    },
+    {
+      "identity" : "primitives",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Primitives.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "05431e58c105831a155d4a3759309ff1e1e30a88"
+      }
+    },
+    {
+      "identity" : "protocolcomponents",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-webc/ProtocolComponents.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "e7a14cb15fccdf57e362f569e5683c639f78ab47"
+      }
+    },
+    {
+      "identity" : "ranking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Ranking.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "383fbc38e012c12875d392b3a1e712497a1335bf"
+      }
+    },
+    {
+      "identity" : "readers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Readers.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "47030d9a4c38299e040ed8024908e2cf4aa96663"
+      }
+    },
+    {
+      "identity" : "reporting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Reporting.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "ff50934cf8d401c1ee2da362f082690b7c2785e3"
+      }
+    },
+    {
+      "identity" : "schema",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Schema.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cc3b5e9411676439a849926be1a9c08e26d41597"
+      }
+    },
+    {
+      "identity" : "search",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Search.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "f97ddb088c3b5fe7a57596f7426fea6a4eee23e6"
+      }
+    },
+    {
+      "identity" : "strings",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Strings",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cc7396a5c06e61a67eb48846a72dbe39dfff3305"
+      }
+    },
+    {
+      "identity" : "syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-langs/Syntax.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d1be9960bcc6e09d39a6ce9a128683c684c30122"
+      }
+    },
+    {
+      "identity" : "terminal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Terminal.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "fbb99c7c560bc08c089525a5d107c5794478dcfa"
+      }
+    },
+    {
+      "identity" : "testflows",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-tooling/TestFlows.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "33183f81315b9f6716c097a50263b1ceb2cf8626"
+      }
+    },
+    {
+      "identity" : "testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-tooling/Testing.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "46974bc10780857c246586f5eca4a73dd5c21f4d"
+      }
+    },
+    {
+      "identity" : "tokens",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-langs/Tokens",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1c0d1a3709915782007c48d50e2745f64fc877a7"
+      }
+    },
+    {
+      "identity" : "variables",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-lco/Variables.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "323082a3be66a694c60dcbaa0f61c69bda0435c5"
+      }
+    }
+  ],
+  "version" : 3
+}
