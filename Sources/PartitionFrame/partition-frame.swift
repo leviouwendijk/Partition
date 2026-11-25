@@ -9,20 +9,20 @@ import Partition
 ///     import Partition;
 ///
 ///     let addresses: Addresses = .{ .entries = [
-///         .{ .key = "apis", .parent = "programming" },
-///         .{ .key = "api-depaix", .parent = "apis", .aliases = ["api-hondenmeesters"] },
-///         .{ .key = "api-depaix-env", .parent = "api-depaix", .segment = "env" },
+///         .{ .key = "services", .parent = "projects" },
+///         .{ .key = "billing", .parent = "services", .aliases = ["billing-old"] },
+///         .{ .key = "billing-env", .parent = "billing", .segment = "env" },
 ///     ] };
 ///
 /// map.frame, one per machine:
 ///
 ///     import Partition;
 ///
-///     let map: Map = .{ .machine = "levi-bulldog", .root = "~", .entries = [
-///         .{ .key = "apis", .paths = ["main/programming/bundles/api"] },
-///         .{ .key = "api-depaix", .paths = [
-///             "main/programming/bundles/api/api-depaix",
-///             "main/programming/bundles/api/api-hondenmeesters",
+///     let map: Map = .{ .machine = "workstation", .root = "~", .entries = [
+///         .{ .key = "services", .paths = ["work/projects/services"] },
+///         .{ .key = "billing", .paths = [
+///             "work/projects/services/billing",
+///             "work/projects/services/billing-old",
 ///         ] },
 ///     ] };
 public enum PartitionFrame {

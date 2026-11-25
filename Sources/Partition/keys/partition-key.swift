@@ -1,7 +1,7 @@
 import Foundation
 import Primitives
 
-/// A location's stable name, such as `nginx` or `api-depaix`.
+/// A location's stable name, such as `nginx` or `billing`.
 ///
 /// Lowercase ASCII letters, digits and single hyphens, starting and ending with
 /// a letter or digit. A key is never renamed: a rename adds a key and keeps the

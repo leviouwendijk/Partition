@@ -5,8 +5,8 @@ import Path
 /// The locations of this machine: a catalog read against this machine's map.
 ///
 ///     let partitions = try PartitionConfiguration.load()     // PartitionFrame
-///     let api = try partitions.path("api-depaix")
-///     let env = try partitions.path("api-depaix", "env/.env")
+///     let api = try partitions.path("billing")
+///     let env = try partitions.path("billing", "env/.env")
 public struct Partitions: Sendable {
     public let catalog: PartitionCatalog
     public let map: PartitionMap
@@ -84,7 +84,7 @@ public struct Partitions: Sendable {
         return try resolve(key, visited: &visited)
     }
 
-    /// A path inside a key's location: `path("api-depaix", "env/.env")`.
+    /// A path inside a key's location: `path("billing", "env/.env")`.
     public func path(
         _ key: PartitionKey,
         _ relative: String

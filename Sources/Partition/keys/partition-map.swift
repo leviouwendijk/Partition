@@ -43,7 +43,7 @@ public struct PartitionMap: Sendable, Hashable {
         throw .invalidRoot(raw)
     }
 
-    /// A relative path as written in a map file: `main/programming/bundles/api`.
+    /// A relative path as written in a map file: `work/projects/services`.
     public static func components(
         _ relative: String
     ) -> [String] {

@@ -11,11 +11,11 @@ enum PartitionKeyFlows {
 
     let addresses: Addresses = .{ .entries = [
         .{ .key = "main" },
-        .{ .key = "programming", .parent = "main" },
-        .{ .key = "apis", .parent = "programming" },
-        .{ .key = "api-depaix", .parent = "apis", .aliases = ["api-hondenmeesters"] },
-        .{ .key = "api-depaix-env", .parent = "api-depaix", .segment = "env" },
-        .{ .key = "nginx", .parent = "programming" },
+        .{ .key = "projects", .parent = "main" },
+        .{ .key = "services", .parent = "projects" },
+        .{ .key = "billing", .parent = "services", .aliases = ["billing-old"] },
+        .{ .key = "billing-env", .parent = "billing", .segment = "env" },
+        .{ .key = "nginx", .parent = "projects" },
     ] };
     """
 
@@ -24,17 +24,17 @@ enum PartitionKeyFlows {
 
     let map: Map = .{ .machine = "test-host", .root = "/srv/home", .entries = [
         .{ .key = "main", .paths = ["main"] },
-        .{ .key = "programming", .paths = ["main/programming"] },
-        .{ .key = "apis", .paths = ["main/programming/bundles/api"] },
-        .{ .key = "api-depaix", .paths = [
-            "main/programming/bundles/api/api-depaix",
-            "main/programming/bundles/api/api-hondenmeesters",
+        .{ .key = "projects", .paths = ["work/projects"] },
+        .{ .key = "services", .paths = ["work/projects/services"] },
+        .{ .key = "billing", .paths = [
+            "work/projects/services/billing",
+            "work/projects/services/billing-old",
         ] },
     ] };
     """
 
-    static let newFolder = "/srv/home/main/programming/bundles/api/api-depaix"
-    static let oldFolder = "/srv/home/main/programming/bundles/api/api-hondenmeesters"
+    static let newFolder = "/srv/home/work/projects/services/billing"
+    static let oldFolder = "/srv/home/work/projects/services/billing-old"
 
     /// Partitions over the test configuration, where only `existing` paths exist.
     static func configured(
@@ -75,33 +75,33 @@ enum PartitionKeyFlows {
         TestFlow("key-validation", tags: ["keys"]) {
             // PartitionKey("…") with a literal is a literal conversion (a bad literal traps);
             // runtime strings go through parse, which throws.
-            try Expect.equal(try PartitionKey.parse("api-depaix").raw, "api-depaix", "valid key")
+            try Expect.equal(try PartitionKey.parse("billing").raw, "billing", "valid key")
             try Expect.equal(try PartitionKey.parse("  nginx ").raw, "nginx", "trimmed")
             try Expect.throwsError("empty key") { _ = try PartitionKey.parse("") }
             try Expect.throwsError("uppercase") { _ = try PartitionKey.parse("Api") }
-            try Expect.throwsError("underscore") { _ = try PartitionKey.parse("api_depaix") }
+            try Expect.throwsError("underscore") { _ = try PartitionKey.parse("billing_api") }
             try Expect.throwsError("edge hyphen") { _ = try PartitionKey.parse("-api") }
-            try Expect.throwsError("double hyphen") { _ = try PartitionKey.parse("api--depaix") }
+            try Expect.throwsError("double hyphen") { _ = try PartitionKey.parse("billing--api") }
             return []
         },
 
         TestFlow("fallback-candidates", tags: ["keys", "map"]) {
             let onlyOld = try configured(existing: [oldFolder])
-            try Expect.equal(rendered(try onlyOld.path("api-depaix")), oldFolder, "only the old folder exists: fallback")
+            try Expect.equal(rendered(try onlyOld.path("billing")), oldFolder, "only the old folder exists: fallback")
 
             let both = try configured(existing: [newFolder, oldFolder])
-            try Expect.equal(rendered(try both.path("api-depaix")), newFolder, "both exist: first candidate")
+            try Expect.equal(rendered(try both.path("billing")), newFolder, "both exist: first candidate")
 
             let neither = try configured(existing: [])
-            try Expect.equal(rendered(try neither.path("api-depaix")), oldFolder, "none exist: last candidate")
+            try Expect.equal(rendered(try neither.path("billing")), oldFolder, "none exist: last candidate")
             return [.field("fallback", oldFolder)]
         },
 
         TestFlow("alias-resolution", tags: ["keys", "aliases"]) {
             let partitions = try configured(existing: [oldFolder])
             try Expect.equal(
-                rendered(try partitions.path("api-hondenmeesters")),
-                rendered(try partitions.path("api-depaix")),
+                rendered(try partitions.path("billing-old")),
+                rendered(try partitions.path("billing")),
                 "alias resolves to the key's path"
             )
             return []
@@ -109,11 +109,11 @@ enum PartitionKeyFlows {
 
         TestFlow("child-under-fallback-parent", tags: ["keys", "segments"]) {
             let old = try configured(existing: [oldFolder])
-            try Expect.equal(rendered(try old.path("api-depaix-env")), oldFolder + "/env", "segment under the fallback")
+            try Expect.equal(rendered(try old.path("billing-env")), oldFolder + "/env", "segment under the fallback")
 
             let new = try configured(existing: [newFolder])
-            try Expect.equal(rendered(try new.path("api-depaix-env")), newFolder + "/env", "segment under the new folder")
-            try Expect.equal(rendered(try new.path("api-depaix", "env/.env")), newFolder + "/env/.env", "relative path inside a key")
+            try Expect.equal(rendered(try new.path("billing-env")), newFolder + "/env", "segment under the new folder")
+            try Expect.equal(rendered(try new.path("billing", "env/.env")), newFolder + "/env/.env", "relative path inside a key")
             return []
         },
 
@@ -138,10 +138,10 @@ enum PartitionKeyFlows {
                 "map key not in addresses"
             )
 
-            let aliasKey = map.replacingOccurrences(of: ".{ .key = \"api-depaix\", .paths", with: ".{ .key = \"api-hondenmeesters\", .paths")
+            let aliasKey = map.replacingOccurrences(of: ".{ .key = \"billing\", .paths", with: ".{ .key = \"billing-old\", .paths")
             try Expect.equal(
                 try error("alias in map") { _ = try configured(existing: [], map: aliasKey) },
-                .aliasInMap(alias: "api-hondenmeesters", key: "api-depaix"),
+                .aliasInMap(alias: "billing-old", key: "billing"),
                 "map must name the key, not an alias"
             )
             return []
@@ -201,9 +201,9 @@ enum PartitionKeyFlows {
             import Partition;
 
             let map: Map = .{ .machine = "old-machine", .root = "/srv/home", .entries = [
-                .{ .key = "main", .paths = ["myworkdir"] },
-                .{ .key = "programming", .paths = ["myworkdir/programming"] },
-                .{ .key = "apis", .paths = ["myworkdir/programming/api", "myworkdir/programming/apis-legacy"] },
+                .{ .key = "main", .paths = ["oldroot"] },
+                .{ .key = "projects", .paths = ["oldroot/projects"] },
+                .{ .key = "services", .paths = ["oldroot/projects/services", "oldroot/projects/services-legacy"] },
             ] };
             """
             let partitions = try PartitionConfiguration.parse(
@@ -217,17 +217,17 @@ enum PartitionKeyFlows {
                 partitions.translate(StandardPath(rawPath: raw)).map(rendered)
             }
             try Expect.equal(
-                translate("/srv/home/myworkdir/programming/api/x/y"),
-                "/srv/home/main/programming/bundles/api/x/y",
+                translate("/srv/home/oldroot/projects/services/x/y"),
+                "/srv/home/work/projects/services/x/y",
                 "longest prefix wins (apis over programming)"
             )
             try Expect.equal(
-                translate("/srv/home/myworkdir/programming/apis-legacy/x"),
-                "/srv/home/main/programming/bundles/api/x",
+                translate("/srv/home/oldroot/projects/services-legacy/x"),
+                "/srv/home/work/projects/services/x",
                 "a second candidate is a historical rename"
             )
             try Expect.equal(
-                translate("/srv/home/myworkdir/notes"),
+                translate("/srv/home/oldroot/notes"),
                 "/srv/home/main/notes",
                 "falls back to a shorter key"
             )
@@ -242,15 +242,14 @@ enum PartitionKeyFlows {
                 throw TestFlowSkip("no configuration at \(directory.path)")
             }
             let partitions = try PartitionConfiguration.load()
-            var fields: [TestDiagnostic] = [.field("machine", partitions.map.machine)]
             for entry in partitions.catalog.entries {
                 let path = rendered(try partitions.path(entry.key))
                 try Expect.true(FileManager.default.fileExists(atPath: path), "\(entry.key) exists at \(path)")
-                if entry.key == "api-depaix" {
-                    fields.append(.field("api-depaix", path))
-                }
             }
-            return fields
+            return [
+                .field("machine", partitions.map.machine),
+                .field("keys", "\(partitions.catalog.entries.count)"),
+            ]
         },
 
         TestFlow("frame-rejects-unknown-fields", tags: ["configuration", "frame"]) {
