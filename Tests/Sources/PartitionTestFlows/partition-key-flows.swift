@@ -195,6 +195,46 @@ enum PartitionKeyFlows {
             return []
         },
 
+        TestFlow("translate-from-other-layout", tags: ["map", "translate"]) {
+            // A former layout under the same root, with a historical rename as an extra candidate.
+            let former = """
+            import Partition;
+
+            let map: Map = .{ .machine = "old-machine", .root = "/srv/home", .entries = [
+                .{ .key = "main", .paths = ["myworkdir"] },
+                .{ .key = "programming", .paths = ["myworkdir/programming"] },
+                .{ .key = "apis", .paths = ["myworkdir/programming/api", "myworkdir/programming/apis-legacy"] },
+            ] };
+            """
+            let partitions = try PartitionConfiguration.parse(
+                addresses: addresses,
+                map: map,
+                others: [(former, "maps/old.frame")],
+                hostname: "test-host",
+                exists: { _ in false }
+            )
+            let translate = { (raw: String) in
+                partitions.translate(StandardPath(rawPath: raw)).map(rendered)
+            }
+            try Expect.equal(
+                translate("/srv/home/myworkdir/programming/api/x/y"),
+                "/srv/home/main/programming/bundles/api/x/y",
+                "longest prefix wins (apis over programming)"
+            )
+            try Expect.equal(
+                translate("/srv/home/myworkdir/programming/apis-legacy/x"),
+                "/srv/home/main/programming/bundles/api/x",
+                "a second candidate is a historical rename"
+            )
+            try Expect.equal(
+                translate("/srv/home/myworkdir/notes"),
+                "/srv/home/main/notes",
+                "falls back to a shorter key"
+            )
+            try Expect.equal(translate("/elsewhere/x"), nil, "outside every other map")
+            return []
+        },
+
         TestFlow("live-configuration", tags: ["configuration", "live"]) {
             let directory = PartitionConfiguration.directory()
             let addressesFile = directory.appendingPathComponent(PartitionConfiguration.addressesFile)

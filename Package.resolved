@@ -1,15 +1,6 @@
 {
-  "originHash" : "4c717bd2e93ed0181d86c1a5b59503f4bd17fd49f0e99f1cae0136be87d1746c",
+  "originHash" : "f0b6d2f468f4e7fc0bb4db16dacf0b2b9d16953f38e39c197188052f46360871",
   "pins" : [
-    {
-      "identity" : "arguments",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swift-lco/Arguments.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "c9f38a0396d54a9c98c7fa4fb6b10cba4197170f"
-      }
-    },
     {
       "identity" : "atomos",
       "kind" : "remoteSourceControl",
@@ -110,15 +101,6 @@
       }
     },
     {
-      "identity" : "milieu",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swift-lco/Milieu.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "577ab1caa1513151b6b1d2dcff5fa857533890cd"
-      }
-    },
-    {
       "identity" : "parsing",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swift-langs/Parsing.git",
@@ -188,15 +170,6 @@
       "state" : {
         "branch" : "master",
         "revision" : "d1be9960bcc6e09d39a6ce9a128683c684c30122"
-      }
-    },
-    {
-      "identity" : "variables",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swift-lco/Variables.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "323082a3be66a694c60dcbaa0f61c69bda0435c5"
       }
     }
   ],

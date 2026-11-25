@@ -22,7 +22,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-lco/Primitives.git", branch: "master"),
         .package(url: "https://github.com/swift-lco/Path.git", branch: "master"),
-        .package(url: "https://github.com/swift-lco/Milieu.git", branch: "master"),
         .package(url: "https://github.com/swift-lco/IO.git", branch: "master"),
         .package(url: "https://github.com/swift-lco/Readers.git", branch: "master"),
         .package(url: "https://github.com/lco-langs/Frame.git", branch: "master"),
@@ -33,7 +32,6 @@ let package = Package(
             dependencies: [
                 "Primitives",
                 "Path",
-                "Milieu",
                 "IO",
             ],
         ),
@@ -42,6 +40,7 @@ let package = Package(
             dependencies: [
                 "Partition",
                 "IO",
+                "Path",
                 "Readers",
                 .product(name: "Frame", package: "Frame"),
             ],

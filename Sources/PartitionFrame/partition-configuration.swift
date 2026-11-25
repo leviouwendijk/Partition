@@ -1,6 +1,7 @@
 import Foundation
 import Frame
 import IO
+import Path
 import Partition
 import Readers
 
@@ -40,21 +41,28 @@ public enum PartitionConfiguration {
     ) throws(PartitionError) -> Partitions {
         let addresses = directory.appendingPathComponent(addressesFile)
         let map = directory.appendingPathComponent(mapFile)
+        var others: [(source: String, path: String)] = []
+        for file in try otherMapFiles(in: directory) {
+            others.append((try read(file), file.path))
+        }
         return try parse(
             addresses: try read(addresses),
             addressesPath: addresses.path,
             map: try read(map),
             mapPath: map.path,
+            others: others,
             hostname: hostname
         )
     }
 
-    /// Both files' sources, already read; for tests and tools that hold them in memory.
+    /// The sources, already read; for tests and tools that hold them in memory.
+    /// `others` are maps of other machines or former layouts, for `Partitions.translate`.
     public static func parse(
         addresses: String,
         addressesPath: String = addressesFile,
         map: String,
         mapPath: String = mapFile,
+        others: [(source: String, path: String)] = [],
         hostname: String = PartitionMachine.hostname(),
         exists: @escaping @Sendable (URL) -> Bool = { FileSystem.default.exists($0) }
     ) throws(PartitionError) -> Partitions {
@@ -62,12 +70,38 @@ public enum PartitionConfiguration {
             .catalog()
         let machineMap = try decode(PartitionFrame.Map.self, binding: "map", source: map, path: mapPath)
             .map()
+        var otherMaps: [PartitionMap] = []
+        for other in others {
+            otherMaps.append(try decode(PartitionFrame.Map.self, binding: "map", source: other.source, path: other.path).map())
+        }
         return try Partitions(
             catalog: catalog,
             map: machineMap,
+            others: otherMaps,
             hostname: hostname,
             exists: exists
         )
+    }
+
+    /// `maps/*.frame`: other machines' or former layouts. Optional.
+    public static let otherMapsDirectory = "maps"
+
+    private static func otherMapFiles(
+        in directory: URL
+    ) throws(PartitionError) -> [URL] {
+        let maps = directory.appendingPathComponent(otherMapsDirectory, isDirectory: true)
+        guard FileSystem.default.exists(maps) else {
+            return []
+        }
+        do {
+            return try PathWalker(root: maps, configuration: .init(emitDirectories: false))
+                .walk()
+                .map(\.url)
+                .filter { $0.pathExtension == "frame" }
+                .sorted { $0.path < $1.path }
+        } catch {
+            throw .invalidConfiguration(file: maps.path, message: "\(error)")
+        }
     }
 
     private static func read(

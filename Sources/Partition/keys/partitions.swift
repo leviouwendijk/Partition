@@ -10,30 +10,70 @@ import Path
 public struct Partitions: Sendable {
     public let catalog: PartitionCatalog
     public let map: PartitionMap
+    /// Other machines' or former layouts, used only by `translate(_:)`.
+    public let others: [PartitionMap]
     private let exists: @Sendable (URL) -> Bool
 
-    /// Checks that the map is for `hostname` and that it names declared keys only.
+    /// Checks that the map is for `hostname` and that every map names declared keys only.
     /// `exists` decides which candidate path wins; tests pass their own.
     public init(
         catalog: PartitionCatalog,
         map: PartitionMap,
+        others: [PartitionMap] = [],
         hostname: String = PartitionMachine.hostname(),
         exists: @escaping @Sendable (URL) -> Bool = { FileSystem.default.exists($0) }
     ) throws(PartitionError) {
         guard map.machine.lowercased() == hostname.lowercased() else {
             throw .machineMismatch(map: map.machine, host: hostname)
         }
-        for key in map.candidates.keys {
-            if let target = catalog.aliasTarget(of: key) {
-                throw .aliasInMap(alias: key, key: target)
-            }
-            guard catalog.contains(key: key) else {
-                throw .unknownMapKey(key)
+        for candidateMap in [map] + others {
+            for key in candidateMap.candidates.keys {
+                if let target = catalog.aliasTarget(of: key) {
+                    throw .aliasInMap(alias: key, key: target)
+                }
+                guard catalog.contains(key: key) else {
+                    throw .unknownMapKey(key)
+                }
             }
         }
         self.catalog = catalog
         self.map = map
+        self.others = others
         self.exists = exists
+    }
+
+    /// The same location on this machine, for a path written under another map.
+    ///
+    /// Finds the key whose path in one of `others` is the longest prefix of
+    /// `path` (any of its candidates) and re-roots the rest under that key's
+    /// path here. Nil when no other map covers `path`. The result need not exist.
+    public func translate(
+        _ path: StandardPath
+    ) -> StandardPath? {
+        let source = path.segments.map(\.value)
+        var best: (length: Int, key: PartitionKey, rest: [String])?
+
+        for other in others {
+            let root = other.root.segments.map(\.value)
+            // Sorted, so equal-length matches resolve the same way every run.
+            for (key, candidates) in other.candidates.sorted(by: { $0.key < $1.key }) {
+                for candidate in candidates {
+                    let prefix = root + candidate
+                    guard prefix.count <= source.count,
+                          Array(source.prefix(prefix.count)) == prefix,
+                          prefix.count > (best?.length ?? -1)
+                    else {
+                        continue
+                    }
+                    best = (prefix.count, key, Array(source.dropFirst(prefix.count)))
+                }
+            }
+        }
+
+        guard let best, let here = try? self.path(best.key) else {
+            return nil
+        }
+        return StandardPath(from: here, best.rest, filetype: path.filetype)
     }
 
     /// The path of a key or alias on this machine.
